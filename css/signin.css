@@ -1,0 +1,27 @@
+:root {
+    --color-darkest: #251B37;
+    --color-lightest: #FFECEF;
+    --color-lessdark: #694990;
+    --color-lesslight: #FFCACA;
+}
+
+.main-signin {
+    display: flex;
+}
+
+.main-signin input[type=submit] {
+    padding: 14px;
+    border-radius: 40px;
+    width: 100%;
+    line-height: 0px;
+    border: none;
+}
+
+.main-signin input[type=text], .main-signin input[type=password], .main-signin input[type=email] {
+    border: none;
+    background: none;
+    border-bottom: solid 1px white;
+    margin: 10% 0 20% 0;
+    color: var(--color-lightest);
+    width: 100%;
+}

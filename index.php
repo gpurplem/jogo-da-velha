@@ -16,7 +16,7 @@
     <nav class="nav-top">
         <div class="nav-container">
             <ul class="nav-options">
-                <li><a href="">HOME</a></li>
+                <li><a href="index.php">HOME</a></li>
             </ul>
         </div>
     </nav>
@@ -44,9 +44,9 @@
                         <label for="password">Senha</label>
                         <input type="password" name="password" id="">
 
-                        <input type="button" value="LOGIN"><br>
+                        <input type="submit" value="LOGIN"><br>
 
-                        <p><a href="">Registre-se</a></p>
+                        <p><a href="frm-cadastrar.php">Cadastre-se</a></p>
                     </form>
                 </div>
             </div>
