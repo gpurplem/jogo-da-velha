@@ -28,6 +28,14 @@
     align-items: center;
 }
 
+.nav-options {
+    display: flex;
+    width: 30%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .nav-options a {
     color: var(--color-lightest);
 }

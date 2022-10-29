@@ -12,6 +12,11 @@
 </head>
 
 <body>
+    <!-- Página sem estar logada -->
+    <?php
+        session_start();
+        if(!isset($_SESSION['id'])){
+    ?>
 
     <nav class="nav-top">
         <div class="nav-container">
@@ -37,7 +42,7 @@
                     <small><a href="https://pt.wikipedia.org/wiki/Jogo_da_velha">pt.wikipedia.org/wiki/Jogo_da_velha</a></small>
                 </div>
                 <div class="main-login">
-                    <form action="">
+                    <form action="logar.php" method="post">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="">
                         
@@ -53,7 +58,41 @@
         </div>
     </main>
 
+    <!-- Página logada -->
 
+    <?php
+        } else {
+    ?>
+
+          <nav class="nav-top">
+        <div class="nav-container">
+            <ul class="nav-options">
+                <li><a href="index.php">HOME</a></li>
+                <li><a href="placar.php">PLACAR</a></li>
+                <li><a href="sair.php">SAIR</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-index">
+        <div class="main-outer-container">
+            <div class="main-inner-container">
+                <div class="main-intro">
+                    Partidas anteriores (resultado)
+                    Continuar Partidas
+                    Nova partida
+                </div>
+                <div class="main-login">
+                    
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <?php
+        }
+    ?>
 
 </body>
 
