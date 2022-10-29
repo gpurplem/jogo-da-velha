@@ -1,0 +1,41 @@
+:root {
+    --color-darkest: #251B37;
+    --color-lightest: #FFECEF;
+    --color-lessdark: #694990;
+    --color-lesslight: #FFCACA;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.nav-top {
+    display: block;
+    top: 0;
+    height: 10vh;
+    background-color: var(--color-darkest);
+}
+
+.nav-container {
+    display: flex;
+    margin: 0 10%;
+    height: 100%;
+    width: 80%;
+    align-items: center;
+}
+
+.nav-options a {
+    color: var(--color-lightest);
+}
+
+body {
+    background-color: var(--color-lessdark);
+}
+
+a {
+    color: inherit;
+}
