@@ -1,0 +1,30 @@
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+#input-adv {
+    margin: 10% 0 0 0;
+}
+
+.autocomplete-items {
+    width: 100%;
+    z-index: 99;
+    background: var(--color-lessdark);
+}
+
+#input-adv-btn {
+    margin-top: 10%;
+}
+
+.autocomplete-items div:hover {
+    background-color: var(--color-lesslight);
+    color: var(--color-darkest);
+  }
+  
+.autocomplete-active { /*Arrowkeys*/
+    background-color: var(--color-lesslight) !important; 
+    color: var(--color-darkest);
+}

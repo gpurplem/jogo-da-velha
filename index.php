@@ -101,31 +101,8 @@
                     </div>
                     <div class="main-matches">
                         <div class="main-matches-inner">
-                            
-                                <div class="main-matches-continue">
-                                    <p>Continuar partida contra:</p>
-                                    <p>A</p>
-                                    <p>B</p>
-                                    <p>C</p>
-                                    <p>D</p>
-                                    <p>E</p>
-                                    <p>F</p>
-                                    <p>G</p>
-                                    <p>H</p>
-                                    <p>A</p>
-                                    <p>B</p>
-                                    <p>C</p>
-                                    <p>D</p>
-                                    <p>E</p>
-                                    <p>F</p>
-                                    <p>G</p>
-                                    <p>H</p>
-                                </div>
-
-                            
-
-                            <div class="main-matches-new">
-                                <p>Nova partida contra:</p>
+                            <div class="main-matches-continue">
+                                <p>Continuar partida contra:</p>
                                 <p>A</p>
                                 <p>B</p>
                                 <p>C</p>
@@ -143,6 +120,38 @@
                                 <p>G</p>
                                 <p>H</p>
                             </div>
+
+                            <link rel="stylesheet" href="./css/autocomplete.css">
+                            <div class="main-matches-new">
+                                <p>Nova partida contra:</p>
+                                <form autocomplete="off" action="nova-partida.php">
+                                    <div class="autocomplete">
+                                        <input id="input-adv" type="text" name="players" placeholder="Jogadores">                                        
+                                    </div>
+                                </form>
+                                <input id="input-adv-btn" type="submit" value="JOGAR">
+                            </div>
+
+                            <script src="./js/getNames.js"></script>
+                            <script>
+                                var nomes = Array();
+                                <?php                                
+                                    $thisID = $_SESSION['id'];
+                                    include("acessarBD.php");
+                                    $sql = "SELECT `id`, `nome` FROM `users` WHERE `id` != '$thisID'";  
+
+                                    $preparado = $conn->prepare($sql);
+                                    $preparado->execute();
+                                    
+                                    while($result = $preparado->fetch(PDO::FETCH_ASSOC)) {
+                                        $nome_atual = $result['nome'];
+                                        $id_atual = $result['id'];
+                                        echo "nomes.push('$nome_atual');";
+                                    }
+                                ?>
+                                autocomplete(document.getElementById("input-adv"), nomes);
+                            </script>
+
                         </div>
                     </div>
                 </div>
