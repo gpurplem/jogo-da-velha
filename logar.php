@@ -47,10 +47,10 @@
                 $_SESSION['email'] = $data['email'];
                 $_SESSION['nome'] = $data['nome'];
             } else {
-                echo "<p>Email e/ou senha com erro!</p><br>";
+                echo "<p>Email e/ou senha com erro!</p>";
             }
         } catch(Exception $e) {
-            echo "<p>Email e/ou senha com erro!</p><br>";
+            echo "<p>Email e/ou senha com erro!</p>";
         }
     ?>
                         </div>

@@ -2,26 +2,25 @@ function autocomplete(inp, arr) { /*input element and array*/
     var currentFocus;
 
     inp.addEventListener("input", function (e) { /*input activates when user writes*/
-        var a, b, i, val = this.value;
+        var newDiv, itemsListDiv, i, val = this.value; /*this = inp, value = content of input box*/
         closeAllLists(); /*close any already open lists of autocompleted values*/
         if (!val) { return false; }
         currentFocus = -1;
-        a = document.createElement("DIV"); /*create DIV that will contain the items (values)*/
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
-        this.parentNode.appendChild(a); /*append DIV as a child of the autocomplete container*/
-
+        newDiv = document.createElement("DIV"); /*create DIV that will contain the items (values)*/
+        newDiv.setAttribute("id", this.id + "autocomplete-list");
+        newDiv.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(newDiv); /*append DIV as a child of the autocomplete container*/
         for (i = 0; i < arr.length; i++) { /*each item in the array*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) { /*item starts same letters as field value*/
-                b = document.createElement("DIV"); /*create a DIV for each matching element*/
-                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>"; /*make matching letters bold*/
-                b.innerHTML += arr[i].substr(val.length);
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>"; /*insert input field that'll hold the current array item's value*/
-                b.addEventListener("click", function (e) { /*when click on the item value (DIV element)*/
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) { /*val=Abc, val.length=3*/
+                itemsListDiv = document.createElement("DIV"); /*create a DIV for each matching element*/
+                itemsListDiv.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>"; /*make matching letters bold*/
+                itemsListDiv.innerHTML += arr[i].substr(val.length); /*innerHTML = appendChild(object)*/
+                itemsListDiv.innerHTML += "<input type='hidden' value='" + arr[i] + "'>"; /*insert input field that'll hold the current array item's value*/
+                itemsListDiv.addEventListener("click", function (e) { /*when click on the item value (DIV element)*/
                     inp.value = this.getElementsByTagName("input")[0].value; /*insert value autocomplete text field*/
                     closeAllLists();
                 });
-                a.appendChild(b);
+                newDiv.appendChild(itemsListDiv);
             }
         }
     });

@@ -1,0 +1,66 @@
+:root {
+    --color-darkest: #251B37;
+    --color-lightest: #FFECEF;
+    --color-lessdark: #694990;
+    --color-lesslight: #FFCACA;
+}
+
+.jogada-inner-container {
+    display: flex;
+    height: 80%;
+    width: 70%;
+    background-color: var(--color-darkest);
+    gap: 3%;
+    color: var(--color-lightest);
+    flex-direction: column;
+}
+
+.placar {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.tabuleiro {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nome {
+    display: flex;
+    align-items: center;
+}
+
+.table {
+    background: transparent;
+    width: 40%;
+    height: 70%;
+    display: table;
+    border-collapse: collapse;
+}
+
+.table-row {
+    display: table-row;
+    width: 100%;
+    height: 33%;
+}
+
+.table-cell {
+    display: table-cell;
+    width: 33%;
+}
+
+.left-right {
+    border-left: groove 3px white;
+    border-right: groove 3px white;
+}
+
+.top-down {
+    border-top: groove 3px white;
+    border-bottom: groove 3px white;
+}

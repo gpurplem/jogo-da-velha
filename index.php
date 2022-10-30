@@ -15,6 +15,7 @@
     <!-- Página sem estar logada -->
     <?php
     session_start();
+    include("acessarBD.php");
     if (!isset($_SESSION['id'])) {
     ?>
 
@@ -58,7 +59,7 @@
             </div>
         </main>
 
-    <!-- Página logada -->
+        <!-- Página logada -->
     <?php
     } else {
     ?>
@@ -96,28 +97,43 @@
                         <p>C X D -> D</p>
                         <p>A X B -> A</p>
                         <p>C X D -> D</p>
-
                     </div>
                     <div class="main-matches">
                         <div class="main-matches-inner">
+                            <!-- Continuar partida -->
                             <div class="main-matches-continue">
                                 <p>Continuar partida contra:</p>
-                                <p>A</p>
-                                <p>B</p>
-                                <p>C</p>
-                                <p>D</p>
-                                <p>E</p>
-                                <p>F</p>
-                                <p>G</p>
-                                <p>H</p>
-                                <p>A</p>
-                                <p>B</p>
-                                <p>C</p>
-                                <p>D</p>
-                                <p>E</p>
-                                <p>F</p>
-                                <p>G</p>
-                                <p>H</p>
+                            <?php
+                                $idLogado = $_SESSION['id'];
+                                $sql = "SELECT * FROM `partida` WHERE `idLogado` = $idLogado AND `idVencedor` = 0";
+                                $preparado = $conn->prepare($sql);
+                                $preparado->execute();
+
+                                while ($result = $preparado->fetch(PDO::FETCH_ASSOC)) {
+                                    $idAdv = $result['idAdv'];
+                                    $dataPartida = $result['dataInicio'];
+                                    $idPartida = $result['id'];
+                                    
+                                    $sqlAdv = "SELECT * FROM `users` WHERE `id` = $idAdv";
+                                    $preparadoAdv = $conn->prepare($sqlAdv);
+                                    $preparadoAdv->execute();
+                                    $resultAdv = $preparadoAdv->fetch(PDO::FETCH_ASSOC);
+
+                                    $idUltJogar;
+                                    if($result['idUltimoJogar'] != 0){
+                                        if($idLogado == $result['idUltimoJogar']){
+                                            $idUltJogar = "você";
+                                        } else {
+                                            $idUltJogar = $resultAdv['nome'];
+                                        }
+                                    } else {
+                                        $idUltJogar = "-";
+                                    }                                    
+
+                                    $advNome = $resultAdv['nome'];
+                                    echo "<p><a href='jogada.php?0=$idAdv&1=$idPartida'>$advNome | $dataPartida | último: $idUltJogar</a></p>";
+                                }
+                            ?>                                
                             </div>
 
                             <!-- Escolher oponente de nova partida -->
@@ -126,32 +142,29 @@
                                 <p>Nova partida contra:</p>
                                 <form autocomplete="off" action="nova-partida.php" method="POST">
                                     <div class="autocomplete">
-                                        <input id="input-adv" type="text" name="player" placeholder="Jogadores">                                        
-                                    </div>                           
-                                    <input id="input-adv-btn" type="submit" value="JOGAR" name="jogador">         
+                                        <input id="input-adv" type="text" name="player" placeholder="Jogadores">
+                                    </div>
+                                    <input id="input-adv-btn" type="submit" value="JOGAR" name="jogador">
                                 </form>
-                                
                             </div>
 
                             <script src="./js/getNames.js"></script>
                             <script>
                                 var nomes = Array();
-                                <?php                                
-                                    $thisID = $_SESSION['id'];
-                                    include("acessarBD.php");
-                                    $sql = "SELECT `email` FROM `users` WHERE `id` != '$thisID'";  
+                                <?php
+                                $thisID = $_SESSION['id'];                                
+                                $sql = "SELECT `email` FROM `users` WHERE `id` != '$thisID'";
 
-                                    $preparado = $conn->prepare($sql);
-                                    $preparado->execute();
-                                    
-                                    while($result = $preparado->fetch(PDO::FETCH_ASSOC)) {
-                                        $email = $result['email'];
-                                        echo "nomes.push('$email');";
-                                    }
+                                $preparado = $conn->prepare($sql);
+                                $preparado->execute();
+
+                                while ($result = $preparado->fetch(PDO::FETCH_ASSOC)) {
+                                    $email = $result['email'];
+                                    echo "nomes.push('$email');";
+                                }
                                 ?>
-                                autocomplete(document.getElementById("input-adv"), nomes);                                
+                                autocomplete(document.getElementById("input-adv"), nomes);
                             </script>
-
                         </div>
                     </div>
                 </div>
