@@ -34,14 +34,27 @@
 
 .main-intro {
     display: block;
+    width: 50%;
     height: 100%;
     padding: 7%;
     text-align: justify;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.main-intro::-webkit-scrollbar {
+    width: 0.5em;
+    background: var(--color-darkest);
+}
+
+.main-intro::-webkit-scrollbar-thumb {
+    background: var(--color-lesslight);
 }
 
 .main-login {
     display: block;
     height: 100%;
+    width: 50%;
     padding: 10%;
     font-size: 0.8em;
 }
@@ -52,6 +65,7 @@
     border-bottom: solid 1px white;
     margin: 10% 0 20% 0;
     color: var(--color-lightest);
+    width: 100%;
 }
 
 .main-login input[type=submit] {
@@ -64,6 +78,7 @@
 
 .main-login p {
     text-align: center;
+    padding-top: 10px;
 }
 
 h2 {
@@ -74,4 +89,55 @@ h2 {
 label {
     display: block;
     font-size: 0.9em;
+}
+
+.main-matches {
+    display: block;
+    height: 100%;
+    width: 50%;
+    padding: 4% 1%;
+}
+
+.main-matches-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 30px;
+}
+
+.main-matches-continue {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.main-matches-continue::-webkit-scrollbar {
+    width: 0.5em;
+    background: var(--color-darkest);
+}
+
+.main-matches-continue::-webkit-scrollbar-thumb {
+    background: var(--color-lesslight);
+}
+
+.main-matches-new {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.main-matches-new::-webkit-scrollbar {
+    width: 0.5em;
+    background: var(--color-darkest);
+}
+
+.main-matches-new::-webkit-scrollbar-thumb {
+    background: var(--color-lesslight);
 }

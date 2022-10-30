@@ -26,7 +26,8 @@
         <div class="main-outer-container">
             <div class="main-inner-container">
                 <div class="main-signin">
-                    <form action="./cadastrar.php" method="POST">
+                    <div class="main-form-outer">
+                       <form action="./cadastrar.php" method="POST">
                         <label for="nome">Nome</label>
                         <input type="text" name="nome" id="">
 
@@ -37,7 +38,8 @@
                         <input type="password" name="password" id="">
 
                         <input type="submit" value="CADASTRAR"><br>
-                    </form>
+                    </form> 
+                    </div>
                 </div>
             </div>
         </div>
