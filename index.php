@@ -58,8 +58,7 @@
             </div>
         </main>
 
-        <!-- Página logada -->
-
+    <!-- Página logada -->
     <?php
     } else {
     ?>
@@ -121,15 +120,17 @@
                                 <p>H</p>
                             </div>
 
+                            <!-- Escolher oponente de nova partida -->
                             <link rel="stylesheet" href="./css/autocomplete.css">
                             <div class="main-matches-new">
                                 <p>Nova partida contra:</p>
-                                <form autocomplete="off" action="nova-partida.php">
+                                <form autocomplete="off" action="nova-partida.php" method="POST">
                                     <div class="autocomplete">
-                                        <input id="input-adv" type="text" name="players" placeholder="Jogadores">                                        
-                                    </div>
+                                        <input id="input-adv" type="text" name="player" placeholder="Jogadores">                                        
+                                    </div>                           
+                                    <input id="input-adv-btn" type="submit" value="JOGAR" name="jogador">         
                                 </form>
-                                <input id="input-adv-btn" type="submit" value="JOGAR">
+                                
                             </div>
 
                             <script src="./js/getNames.js"></script>
@@ -138,18 +139,17 @@
                                 <?php                                
                                     $thisID = $_SESSION['id'];
                                     include("acessarBD.php");
-                                    $sql = "SELECT `id`, `nome` FROM `users` WHERE `id` != '$thisID'";  
+                                    $sql = "SELECT `email` FROM `users` WHERE `id` != '$thisID'";  
 
                                     $preparado = $conn->prepare($sql);
                                     $preparado->execute();
                                     
                                     while($result = $preparado->fetch(PDO::FETCH_ASSOC)) {
-                                        $nome_atual = $result['nome'];
-                                        $id_atual = $result['id'];
-                                        echo "nomes.push('$nome_atual');";
+                                        $email = $result['email'];
+                                        echo "nomes.push('$email');";
                                     }
                                 ?>
-                                autocomplete(document.getElementById("input-adv"), nomes);
+                                autocomplete(document.getElementById("input-adv"), nomes);                                
                             </script>
 
                         </div>
