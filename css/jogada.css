@@ -64,3 +64,23 @@
     border-top: groove 3px white;
     border-bottom: groove 3px white;
 }
+
+.table-cell:hover {
+    background-color: var(--color-lesslight);
+}
+
+.marked-logged {
+    background-color: aqua;
+}
+
+.marked-opponent {
+    background-color: coral;
+}
+
+.voce {
+    color: aqua;
+}
+
+.adv {
+    color: coral;
+}

@@ -43,7 +43,7 @@
             if($result) {
                 echo "<p>Cadastro realizado com sucesso!</p>";
             } else {
-                echo "<p>Cadastro não realizado!</p><br>";
+                echo "<p>Cadastro não realizado!</p>";
             }
         } catch(Exception $e) {
             echo "<p>Cadastro não realizado!</p><br>";

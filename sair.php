@@ -26,7 +26,7 @@
         <div class="main-outer-container">
             <div class="main-inner-container">
                 <div class="main-signin">
-                    <p>Sessão finalizada. Clique em home.</p>
+                    <p>Sessão finalizada. Clique em HOME.</p>
 
                     <?php
                     session_start();
