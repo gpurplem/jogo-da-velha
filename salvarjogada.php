@@ -42,6 +42,8 @@
                             $result = $conn->query($sql);
                             if ($result) {
                                 echo "<p>Posição marcada com sucesso!</p>";
+                                $sql = "UPDATE `partida` SET `idUltimoJogar` = '$idCasa' WHERE `partida`.`id` = $idPartida;";
+                                $conn->query($sql);
                             } else {
                                 echo "<p>Posição não marcada.</p>";
                             }

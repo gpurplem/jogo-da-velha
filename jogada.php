@@ -56,7 +56,6 @@
                 </div>
             </div>
         </main>
-
         <!-- Pegar posições marcadas -->
         <script>
             var jogadorPosicao = Array();
@@ -68,12 +67,10 @@
         $idAdv = $_GET['0'];
         $_SESSION['idPartida'] = $idPartida;
         $_SESSION['idAdv'] = $idAdv;
-
         include("acessarBD.php");
-        $sql = "SELECT * FROM `jogada` WHERE `idPartida` = $idPartida AND `idJogadorAtual` IN ($idCasa, $idAdv) AND `idJogadorEspera` IN ($idCasa, $idAdv)";
+        $sql = "SELECT * FROM `jogada` WHERE `idPartida` = $idPartida AND `idJogadorAtual` IN ($idCasa, $idAdv) AND `idJogadorEspera` IN ($idCasa,  $idAdv)";
         $preparado = $conn->prepare($sql);
         $preparado->execute();
-
         while ($result = $preparado->fetch(PDO::FETCH_ASSOC)) {
             $jogador = $result['idJogadorAtual'];
             $posicao = $result['posicao'];
@@ -85,13 +82,11 @@
         <?php
         }
         ?>
-
         <!-- Pintar posições marcadas 1 a 9 -->
         <script>
             for (let i = 0; i < jogadorPosicao.length; i += 2) {
                 let player = jogadorPosicao[i];
                 let pos = jogadorPosicao[i + 1];
-
                 if (idLoggedPlayer == player) {
                     document.getElementById(pos).classList.add("marked-logged");
                 } else {
@@ -99,55 +94,54 @@
                 }
             }
         </script>
-
         <!-- Verificar se é a vez de quem está logado -->
+        <?php
+        $sql = "SELECT `idUltimoJogar` FROM `partida` WHERE `id` = $idPartida";
+        $result = $conn->query($sql);
+        if ($result->rowCount() > 0) {
+            $data = $result->fetch(PDO::FETCH_ASSOC);
+            $idUltimo = $data['idUltimoJogar'];
+            if ($idUltimo != $idCasa) {
+        ?>
+                <!-- Capturar apenas elementos que podem ser selecionados e marcar jogada -->
+                <script>
+                    let onlyPosTmp = [];
+                    let urlData;
+                    for (let i = 1; i < jogadorPosicao.length; i += 2) {
+                        onlyPosTmp.push(jogadorPosicao[i]);
+                    }
+                    let positions = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
+                    let positionsTaken = new Set(onlyPosTmp);
+                    let positionsAvailtmp = new Set([...positions].filter(x => !positionsTaken.has(x)));
+                    let positionsAvail = Array.from(positionsAvailtmp);
 
-        <!-- Capturar apenas elementos que podem ser selecionados e marcar jogada -->
-        <script>
-            let onlyPosTmp = [];
-            let urlData;
-
-            for (let i = 1; i < jogadorPosicao.length; i += 2) {
-                onlyPosTmp.push(jogadorPosicao[i]);
-            }
-
-            let positions = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
-            let positionsTaken = new Set(onlyPosTmp);
-            let positionsAvailtmp = new Set([...positions].filter(x => !positionsTaken.has(x)));
-            let positionsAvail = Array.from(positionsAvailtmp);
-
-            function markMove() {
-                this.classList.add("marked-logged");
-
-                for (let i = 0; i < positionsAvail.length; i++) {
-                    document.getElementById(positionsAvail[i]).removeEventListener("click", markMove);
-                }
-
-                urlData = window.location.href;
-                let strpos = urlData.indexOf("php") + 3;
-                urlData = urlData.substr(0, strpos) + "?cellid=" + this.id;
-                urlData = urlData.replace("jogada", "salvarjogada");
-
-                let confirmP = document.createElement("p");
-                confirmP.setAttribute("style", "text-align:center;padding: 2%");
-
-                let confirmLink = document.createElement("a");
-                confirmLink.setAttribute("href", urlData);
-                confirmLink.innerHTML = "CONFIRMAR";
-
-                confirmP.appendChild(confirmLink);
-
-                document.getElementsByClassName("jogada-inner-container")[0].appendChild(confirmP);
-            }
-
-            for (let i = 0; i < positionsAvail.length; i++) {
-                document.getElementById(positionsAvail[i]).addEventListener("click", markMove);
-            }
-        </script>
-
-    <?php
+                    function markMove() {
+                        this.classList.add("marked-logged");
+                        for (let i = 0; i < positionsAvail.length; i++) {
+                            document.getElementById(positionsAvail[i]).removeEventListener("click", markMove);
+                        }
+                        urlData = window.location.href;
+                        let strpos = urlData.indexOf("php") + 3;
+                        urlData = urlData.substr(0, strpos) + "?cellid=" + this.id;
+                        urlData = urlData.replace("jogada", "salvarjogada");
+                        let confirmP = document.createElement("p");
+                        confirmP.setAttribute("style", "text-align:center;padding: 2%");
+                        let confirmLink = document.createElement("a");
+                        confirmLink.setAttribute("href", urlData);
+                        confirmLink.innerHTML = "CONFIRMAR";
+                        confirmP.appendChild(confirmLink);
+                        document.getElementsByClassName("jogada-inner-container")[0].appendChild(confirmP);
+                    }
+                    for (let i = 0; i < positionsAvail.length; i++) {
+                        document.getElementById(positionsAvail[i]).addEventListener("click", markMove);
+                    }
+                </script>
+            <?php
+            } ?>
+        <?php
+        }
     } else {
-    ?>
+        ?>
         <main class="main-index">
             <div class="main-outer-container">
                 <div class="jogada-inner-container">
