@@ -5,16 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogadas</title>
 
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/signin.css">
     <link rel="stylesheet" href="./css/jogada.css">
+
+    <title>Jogar</title>
 </head>
 
 <body>
-
     <nav class="nav-top">
         <div class="nav-container">
             <ul class="nav-options">
@@ -25,6 +24,8 @@
 
     <?php
     session_start();
+
+    /*===== Se houver usuário logado: início =====*/
     if (isset($_SESSION['id'])) {
     ?>
         <main class="main-index">
@@ -56,21 +57,27 @@
                 </div>
             </div>
         </main>
-        <!-- Pegar posições marcadas -->
+
+        <!--===== Coletar: [quem jogou, posição escolhida,...]: início =====-->
         <script>
-            var jogadorPosicao = Array();
-            const idLoggedPlayer = <?php echo $_SESSION['id']; ?>;
+            let jogadorPosicao = Array();
+            const idJogadorLogado = <?php echo $_SESSION['id']; ?>;
         </script>
+
         <?php
         $idCasa = $_SESSION['id'];
         $idPartida = $_GET['1'];
         $idAdv = $_GET['0'];
         $_SESSION['idPartida'] = $idPartida;
         $_SESSION['idAdv'] = $idAdv;
+
+        /*===== Select de todos os movimentos da partida =====*/
         include("acessarBD.php");
         $sql = "SELECT * FROM `jogada` WHERE `idPartida` = $idPartida AND `idJogadorAtual` IN ($idCasa, $idAdv) AND `idJogadorEspera` IN ($idCasa,  $idAdv)";
         $preparado = $conn->prepare($sql);
         $preparado->execute();
+
+        /*===== Carregar vetor js =====*/
         while ($result = $preparado->fetch(PDO::FETCH_ASSOC)) {
             $jogador = $result['idJogadorAtual'];
             $posicao = $result['posicao'];
@@ -82,72 +89,84 @@
         <?php
         }
         ?>
-        <!-- Pintar posições marcadas 1 a 9 -->
+        <!--===== Coletar: [quem jogou, posição escolhida,...]: fim =====-->
+        <!--===== Pintar posições marcadas 1 a 9 =====-->
         <script>
             for (let i = 0; i < jogadorPosicao.length; i += 2) {
                 let player = jogadorPosicao[i];
                 let pos = jogadorPosicao[i + 1];
-                if (idLoggedPlayer == player) {
+                if (idJogadorLogado == player) {
                     document.getElementById(pos).classList.add("marked-logged");
                 } else {
                     document.getElementById(pos).classList.add("marked-opponent");
                 }
             }
         </script>
-        <!-- Verificar se é a vez de quem está logado -->
+        <!--===== Verificar se partida aceita jogadas ainda (não houve vencedor) =====-->
+        <!--===== Controlar qual jogador pode marcar posição =====-->
         <?php
-        $sql = "SELECT `idUltimoJogar` FROM `partida` WHERE `id` = $idPartida";
+        $sql = "SELECT `idVencedor`, `idUltimoJogar` FROM `partida` WHERE `id` = $idPartida";
         $result = $conn->query($sql);
         if ($result->rowCount() > 0) {
-            $data = $result->fetch(PDO::FETCH_ASSOC);
-            $idUltimo = $data['idUltimoJogar'];
-            if ($idUltimo != $idCasa) {
-        ?>
-                <!-- Capturar apenas elementos que podem ser selecionados e marcar jogada -->
-                <script>
-                    let onlyPosTmp = [];
-                    let urlData;
-                    for (let i = 1; i < jogadorPosicao.length; i += 2) {
-                        onlyPosTmp.push(jogadorPosicao[i]);
-                    }
-                    let positions = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
-                    let positionsTaken = new Set(onlyPosTmp);
-                    let positionsAvailtmp = new Set([...positions].filter(x => !positionsTaken.has(x)));
-                    let positionsAvail = Array.from(positionsAvailtmp);
+            $dados = $result->fetch(PDO::FETCH_ASSOC);
+            $idVencedor = $dados['idVencedor'];
 
-                    function markMove() {
-                        this.classList.add("marked-logged");
-                        for (let i = 0; i < positionsAvail.length; i++) {
-                            document.getElementById(positionsAvail[i]).removeEventListener("click", markMove);
+            if($idVencedor == 0) {
+                $idUltimo = $dados['idUltimoJogar'];
+                if ($idUltimo != $idCasa) {
+        ?>
+                    <!--===== Capturar apenas elementos que podem ser selecionados =====-->
+                    <script>
+                        let strUrlDestino;
+                        let setTodasPos = new Set(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
+                        let arrPosMarcadas = [];
+                        for (let i = 1; i < jogadorPosicao.length; i += 2) {
+                            arrPosMarcadas.push(jogadorPosicao[i]);
                         }
-                        urlData = window.location.href;
-                        let strpos = urlData.indexOf("php") + 3;
-                        urlData = urlData.substr(0, strpos) + "?cellid=" + this.id;
-                        urlData = urlData.replace("jogada", "salvarjogada");
-                        let confirmP = document.createElement("p");
-                        confirmP.setAttribute("style", "text-align:center;padding: 2%");
-                        let confirmLink = document.createElement("a");
-                        confirmLink.setAttribute("href", urlData);
-                        confirmLink.innerHTML = "CONFIRMAR";
-                        confirmP.appendChild(confirmLink);
-                        document.getElementsByClassName("jogada-inner-container")[0].appendChild(confirmP);
-                    }
-                    for (let i = 0; i < positionsAvail.length; i++) {
-                        document.getElementById(positionsAvail[i]).addEventListener("click", markMove);
-                    }
-                </script>
+                        let setPosMarcadas = new Set(arrPosMarcadas);
+                        let setPosDisponiveis = new Set([...setTodasPos].filter(x => !setPosMarcadas.has(x)));
+                        let arrPosDisponiveis = Array.from(setPosDisponiveis);
+
+                        /*===== Carregar eventListener apenas onde pode ser marcado =====*/
+                        for (let i = 0; i < arrPosDisponiveis.length; i++) {
+                            document.getElementById(arrPosDisponiveis[i]).addEventListener("click", marcarPos);
+                        }
+
+                        /*===== Marca posição, remove eventListeners, gera URL, cria botão confirma =====*/
+                        function marcarPos() {
+                            this.classList.add("marked-logged");
+
+                            for (let i = 0; i < arrPosDisponiveis.length; i++) {
+                                document.getElementById(arrPosDisponiveis[i]).removeEventListener("click", marcarPos);
+                            }
+
+                            strUrlDestino = window.location.href;
+                            let strpos = strUrlDestino.indexOf("php") + 3;
+                            strUrlDestino = strUrlDestino.substr(0, strpos) + "?cellid=" + this.id;
+                            strUrlDestino = strUrlDestino.replace("jogada", "salvarjogada");
+
+                            let confirmP = document.createElement("p");
+                            confirmP.setAttribute("style", "text-align:center;padding: 2%");
+                            let confirmLink = document.createElement("a");
+                            confirmLink.setAttribute("href", strUrlDestino);
+                            confirmLink.innerHTML = "CONFIRMAR";
+                            confirmP.appendChild(confirmLink);
+                            document.getElementsByClassName("jogada-inner-container")[0].appendChild(confirmP);
+                        }
+                    </script>
+                <?php
+                } ?>
             <?php
-            } ?>
-        <?php
+            }
         }
+    /*===== Se houver usuário logado: fim =====*/
+    /*===== Se não houver usuário logado =====*/
     } else {
         ?>
         <main class="main-index">
             <div class="main-outer-container">
-                <div class="jogada-inner-container">
-                    <div style="display:flex; height: 100%;justify-content: center;align-items: center;">
-                        <p>Faça login!</p>
-                    </div>
+                <div class="main-inner-container main-inner-alert">
+                    <p>Faça login!</p>
                 </div>
             </div>
         </main>
@@ -156,5 +175,4 @@
     ?>
 
 </body>
-
 </html>
