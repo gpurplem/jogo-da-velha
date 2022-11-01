@@ -5,15 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sair</title>
 
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/signin.css">
+
+    <title>Sair</title>
 </head>
 
 <body>
-
     <nav class="nav-top">
         <div class="nav-container">
             <ul class="nav-options">
@@ -24,23 +23,17 @@
 
     <main class="main-index">
         <div class="main-outer-container">
-            <div class="main-inner-container">
-                <div class="main-signin">
-                    <p>Sessão finalizada. Clique em HOME.</p>
-
-                    <?php
-                    session_start();
-
-                    $_SESSION = array();
-
-                    session_destroy();
-                    ?>
-                </div>
+            <div class="main-inner-container main-inner-alert">
+                <?php
+                session_start();
+                $_SESSION = array();
+                session_destroy();
+                ?>
+                <span>Sessão finalizada.</span>
+                <span>Clique em HOME.</span>
             </div>
         </div>
     </main>
-
-
 
 </body>
 

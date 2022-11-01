@@ -32,6 +32,10 @@
     align-items: center;
 }
 
+.main-inner-alert {
+    flex-direction: column;
+}
+
 .main-intro {
     display: block;
     width: 50%;

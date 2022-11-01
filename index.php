@@ -5,20 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-Tac-Toe</title>
 
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/main.css">
+
+    <title>Tic-Tac-Toe</title>
 </head>
 
 <body>
-    <!-- Página sem estar logada -->
     <?php
     session_start();
     include("acessarBD.php");
+
+
+    /*=================================================
+    Página inicial quando está deslogado.
+    =================================================*/
+
+
     if (!isset($_SESSION['id'])) {
     ?>
-
         <nav class="nav-top">
             <div class="nav-container">
                 <ul class="nav-options">
@@ -58,12 +64,16 @@
                 </div>
             </div>
         </main>
-
-        <!-- Página logada -->
     <?php
+
+
+    /*=================================================
+    Página inicial quando está logado.
+    =================================================*/
+
+
     } else {
     ?>
-
         <nav class="nav-top">
             <div class="nav-container">
                 <ul class="nav-options">
@@ -101,9 +111,10 @@
                     <div class="main-matches">
                         <div class="main-matches-inner">
                             <!-- Continuar partida -->
+                            <!-- idvencedor precisa ser 0 pra poder aparecer aqui -->
                             <div class="main-matches-continue">
                                 <p>Continuar partida contra:</p>
-                            <?php
+                                <?php
                                 $idLogado = $_SESSION['id'];
                                 $sql = "SELECT * FROM `partida` WHERE `idLogado` = $idLogado AND `idVencedor` = 0";
                                 $preparado = $conn->prepare($sql);
@@ -113,27 +124,27 @@
                                     $idAdv = $result['idAdv'];
                                     $dataPartida = $result['dataInicio'];
                                     $idPartida = $result['id'];
-                                    
+
                                     $sqlAdv = "SELECT * FROM `users` WHERE `id` = $idAdv";
                                     $preparadoAdv = $conn->prepare($sqlAdv);
                                     $preparadoAdv->execute();
                                     $resultAdv = $preparadoAdv->fetch(PDO::FETCH_ASSOC);
 
                                     $idUltJogar;
-                                    if($result['idUltimoJogar'] != 0){
-                                        if($idLogado == $result['idUltimoJogar']){
+                                    if ($result['idUltimoJogar'] != 0) {
+                                        if ($idLogado == $result['idUltimoJogar']) {
                                             $idUltJogar = "você";
                                         } else {
                                             $idUltJogar = $resultAdv['nome'];
                                         }
                                     } else {
                                         $idUltJogar = "-";
-                                    }                                    
+                                    }
 
                                     $advNome = $resultAdv['nome'];
                                     echo "<p><a href='jogada.php?0=$idAdv&1=$idPartida'>$advNome | $dataPartida | último: $idUltJogar</a></p>";
                                 }
-                            ?>                                
+                                ?>
                             </div>
 
                             <!-- Escolher oponente de nova partida -->
@@ -152,7 +163,7 @@
                             <script>
                                 var nomes = Array();
                                 <?php
-                                $thisID = $_SESSION['id'];                                
+                                $thisID = $_SESSION['id'];
                                 $sql = "SELECT `email` FROM `users` WHERE `id` != '$thisID'";
 
                                 $preparado = $conn->prepare($sql);
@@ -170,11 +181,9 @@
                 </div>
             </div>
         </main>
-
     <?php
     }
     ?>
 
 </body>
-
 </html>
