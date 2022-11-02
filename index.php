@@ -67,7 +67,7 @@
     <?php
 
 
-    /*=================================================
+        /*=================================================
     Página inicial quando está logado.
     =================================================*/
 
@@ -89,30 +89,46 @@
                 <div class="main-inner-container">
 
                     <div class="main-intro">
-                        Partidas anteriores
-                        <p>A X B -> A</p>
-                        <p>C X D -> D</p>
-                        <p>A X B -> A</p>
-                        <p>C X D -> D</p>
-                        <p>A X B -> A</p>
-                        <p>C X D -> D</p>
-                        <p>A X B -> A</p>
-                        <p>C X D -> D</p>
-                        <p>A X B -> A</p>
-                        <p>C X D -> D</p>
-                        <p>A X B -> A</p>
-                        <p>C X D -> D</p>
-                        <p>A X B -> A</p>
-                        <p>C X D -> D</p>
-                        <p>A X B -> A</p>
-                        <p>C X D -> D</p>
-                        <p>A X B -> A</p>
-                        <p>C X D -> D</p>
+                        Partidas anteriores:
+                        <?php
+                        $idLogado = $_SESSION['id'];
+                        $sql = "SELECT * FROM `partida` WHERE (`idLogado` = $idLogado OR `idAdv` = $idLogado) AND `idVencedor` != 0";
+                        $preparado = $conn->prepare($sql);
+                        $preparado->execute();
+
+                        while ($result = $preparado->fetch(PDO::FETCH_ASSOC)) {
+                            $dataPartida = $result['dataInicio'];
+                            $idPartida = $result['id'];
+                            $idVencedor = $result['idVencedor'];
+                            $nomeVencedor;                            
+
+                            /*===== Adequar quem é adversário =====*/
+                            $idAdv = $result['idAdv'];
+                            if ($idAdv == $idLogado) {
+                                $idAdv = $result['idLogado'];
+                            }
+
+                            $sqlAdv = "SELECT * FROM `users` WHERE `id` = $idAdv";
+                            $preparadoAdv = $conn->prepare($sqlAdv);
+                            $preparadoAdv->execute();
+                            $resultAdv = $preparadoAdv->fetch(PDO::FETCH_ASSOC);
+                            $advNome = $resultAdv['nome'];
+
+                            /*===== Adequar quem é vencedor =====*/
+                            if($idVencedor == $idLogado){
+                                $nomeVencedor = "você";
+                            } else {
+                                $nomeVencedor=  $advNome;                               
+                            }
+
+                            echo "<p><a href='jogada.php?0=$idAdv&1=$idPartida'>$advNome | $dataPartida | vencedor: $nomeVencedor</a></p>";
+                        }
+                        ?>
                     </div>
 
                     <div class="main-matches">
                         <div class="main-matches-inner">
-                            
+
                             <!-- Continuar partida (apenas se idvencedor=0) -->
                             <div class="main-matches-continue">
                                 <p>Continuar partida contra:</p>
@@ -125,13 +141,13 @@
                                 while ($result = $preparado->fetch(PDO::FETCH_ASSOC)) {
                                     $dataPartida = $result['dataInicio'];
                                     $idPartida = $result['id'];
-                                    
+
                                     /*===== Adequar quem é adversário =====*/
                                     $idAdv = $result['idAdv'];
-                                    if($idAdv == $idLogado) {
+                                    if ($idAdv == $idLogado) {
                                         $idAdv = $result['idLogado'];
                                     }
-                                
+
                                     $sqlAdv = "SELECT * FROM `users` WHERE `id` = $idAdv";
                                     $preparadoAdv = $conn->prepare($sqlAdv);
                                     $preparadoAdv->execute();
@@ -180,7 +196,7 @@
                                 ?>
                                 autocomplete(document.getElementById("input-adv"), nomes);
                             </script>
-                            
+
                         </div>
                     </div>
 
@@ -192,4 +208,5 @@
     ?>
 
 </body>
+
 </html>
