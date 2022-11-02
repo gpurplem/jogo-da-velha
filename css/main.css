@@ -37,13 +37,15 @@
 }
 
 .main-intro {
-    display: block;
+    display: flex;
     width: 50%;
     height: 100%;
     padding: 7%;
     text-align: justify;
     overflow: scroll;
     overflow-x: hidden;
+    flex-direction: column;
+    gap: 9%;
 }
 
 .main-intro::-webkit-scrollbar {
@@ -63,7 +65,9 @@
     font-size: 0.8em;
 }
 
-input[type=email], input[type=password], input[type=text] {
+input[type=email],
+input[type=password],
+input[type=text] {
     border: none;
     background: none;
     border-bottom: solid 1px white;
@@ -117,6 +121,7 @@ label {
     height: 50%;
     overflow: scroll;
     overflow-x: hidden;
+    gap: 9%;
 }
 
 .main-matches-continue::-webkit-scrollbar {
@@ -144,4 +149,37 @@ label {
 
 .main-matches-new::-webkit-scrollbar-thumb {
     background: var(--color-lesslight);
+}
+
+@media screen and (max-width: 800px) {
+    .main-inner-container {
+        height: 95%;
+        width: 85%;
+        gap: 0;
+        flex-direction: column-reverse;
+    }
+
+    .main-login {
+        width: 100%;
+        padding: 8%;
+        font-size: 1em;
+    }
+
+    .main-intro {
+        width: 100%;
+        padding: 8%;
+    }
+
+    .main-matches {
+        width: 100%;
+        padding: 3% 3%;
+    }
+
+    .nav-options {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 }

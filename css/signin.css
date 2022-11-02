@@ -19,7 +19,9 @@
     border: none;
 }
 
-.main-signin input[type=text], .main-signin input[type=password], .main-signin input[type=email] {
+.main-signin input[type=text],
+.main-signin input[type=password],
+.main-signin input[type=email] {
     border: none;
     background: none;
     border-bottom: solid 1px white;
@@ -35,4 +37,11 @@
 
 .main-form-outer {
     width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+    .main-signin {
+        width: 95%;
+        align-items: center;
+    }
 }

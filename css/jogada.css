@@ -84,3 +84,16 @@
 .adv {
     color: coral;
 }
+
+@media screen and (max-width: 800px) {
+    .jogada-inner-container {
+        height: 75%;
+        width: 100%
+    }
+
+    .table {
+        width: 95%;
+    }
+
+    
+}
