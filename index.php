@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./view/css/style.css">
-    <link rel="stylesheet" href="./css/">
 
     <title>Tic-Tac-Toe</title>
 </head>
@@ -16,7 +15,7 @@
     <main class="whole-page">
         <div class="content-align">
             <div class="content">
-                <div class="intro-text scroll-bar scroll-thumb">
+                <div class="intro-text">
                     <h2>Jogo da velha</h2>
                     <blockquote cite="https://pt.wikipedia.org/wiki/Jogo_da_velha">
                         A origem é desconhecida, com indicações de que pode ter começado no antigo Egito, onde foram encontrados tabuleiros esculpidos na rocha, que teriam mais de 3.500 anos.
@@ -38,7 +37,7 @@
 
                         <input type="submit" value="LOGIN"><br>
 
-                        <p><a href="frm-cadastrar.php">Cadastre-se</a></p>
+                        <p><a href="./view/signin.php">Cadastre-se</a></p>
                     </form>
                 </div>
             </div>

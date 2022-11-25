@@ -12,40 +12,6 @@ label {
     font-size: 0.9em;
 }
 
-.main-matches {
-    display: block;
-    height: 100%;
-    width: 50%;
-    padding: 4% 1%;
-}
-
-.main-matches-inner {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    gap: 30px;
-}
-
-.main-matches-continue {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 50%;
-    overflow: scroll;
-    overflow-x: hidden;
-    gap: 9%;
-}
-
-.main-matches-continue::-webkit-scrollbar {
-    width: 0.5em;
-    background: var(--color-darkest);
-}
-
-.main-matches-continue::-webkit-scrollbar-thumb {
-    background: var(--color-lesslight);
-}
-
 .main-matches-new {
     display: flex;
     flex-direction: column;
@@ -53,46 +19,4 @@ label {
     height: 50%;
     overflow: scroll;
     overflow-x: hidden;
-}
-
-.main-matches-new::-webkit-scrollbar {
-    width: 0.5em;
-    background: var(--color-darkest);
-}
-
-.main-matches-new::-webkit-scrollbar-thumb {
-    background: var(--color-lesslight);
-}
-
-@media screen and (max-width: 800px) {
-    .main-inner-container {
-        height: 95%;
-        width: 85%;
-        gap: 0;
-        flex-direction: column-reverse;
-    }
-
-    .main-login {
-        width: 100%;
-        padding: 8%;
-        font-size: 1em;
-    }
-
-    .main-intro {
-        width: 100%;
-        padding: 8%;
-    }
-
-    .main-matches {
-        width: 100%;
-        padding: 3% 3%;
-    }
-
-    .nav-options {
-        display: flex;
-        width: 100%;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
 }

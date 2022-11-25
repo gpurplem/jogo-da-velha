@@ -28,6 +28,10 @@ a {
     background-size: contain;
 }
 
+.make-height-90v {
+    height: 90vh;
+}
+
 .content-align {
     display: flex;
     height: 100%;
@@ -59,12 +63,12 @@ a {
     gap: 9%;
 }
 
-.scroll-bar::-webkit-scrollbar {
+*::-webkit-scrollbar {
     width: 0.5em;
     background: var(--color-darkest);
 }
 
-.scroll-thumb::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background: var(--color-lesslight);
 }
 
@@ -98,4 +102,72 @@ input[type=submit] {
     color: var(--color-darkest);
     width: 100%;
     line-height: 0px;
+}
+
+.nav-whole {
+    display: block;
+    top: 0;
+    height: 10vh;
+    background-color: var(--color-darkest);
+}
+
+.nav-align {
+    display: flex;
+    margin: 0 10%;
+    height: 100%;
+    width: 80%;
+    align-items: center;
+}
+
+.nav-options {
+    display: flex;
+    width: 30%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-options a {
+    color: var(--color-lightest);
+}
+
+.home-previous-matches {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    padding: 7%;
+    text-align: justify;
+    overflow: scroll;
+    overflow-x: hidden;
+    flex-direction: column;
+    gap: 9%;
+}
+
+.home-play-container {
+    display: block;
+    height: 100%;
+    width: 50%;
+    padding: 4% 1%;
+}
+
+.home-play-align {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 30px;
+}
+
+.home-play-continue {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+    overflow: scroll;
+    overflow-x: hidden;
+    gap: 9%;
+}
+
+.home-play-new {
+    
 }

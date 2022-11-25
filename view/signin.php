@@ -6,44 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./css/global.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/signin.css">
+    <link rel="stylesheet" href="./css/style.css">
 
     <title>Cadastrar</title>
 </head>
 
 <body>
-    <nav class="nav-top">
-        <div class="nav-container">
-            <ul class="nav-options">
-                <li><a href="index.php">HOME</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="main-index">
-        <div class="main-outer-container">
-            <div class="main-inner-container">
-                <div class="main-signin">
-                    <div class="main-form-outer">
-                       <form action="./cadastrar.php" method="POST">
+    <main class="whole-page">
+        <div class="content-align">
+            <div class="content">
+                <div class="form">
+                    <form action="./cadastrar.php" method="POST">
                         <label for="nome">Nome</label>
                         <input type="text" name="nome" id="">
 
                         <label for="email">Email</label>
                         <input type="email" name="email" id="">
-                        
+
                         <label for="password">Senha</label>
                         <input type="password" name="password" id="">
 
                         <input type="submit" value="CADASTRAR"><br>
-                    </form> 
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </main>
 
 </body>
+
 </html>
