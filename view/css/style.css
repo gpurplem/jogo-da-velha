@@ -1,0 +1,101 @@
+:root {
+    --color-darkest: #251B37;
+    --color-lightest: #FFECEF;
+    --color-lessdark: #694990;
+    --color-lesslight: #FFCACA;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+body {
+    background-color: var(--color-lessdark);
+}
+
+a {
+    color: inherit;
+}
+
+.whole-page {
+    display: block;
+    height: 100vh;
+    background-image: url("../images/backdrop.jpg");
+    background-size: contain;
+}
+
+.content-align {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    height: 80%;
+    width: 70%;
+    background-color: var(--color-darkest);
+    gap: 3%;
+    color: var(--color-lightest);
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-text {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    padding: 7%;
+    text-align: justify;
+    overflow: scroll;
+    overflow-x: hidden;
+    flex-direction: column;
+    gap: 9%;
+}
+
+.scroll-bar::-webkit-scrollbar {
+    width: 0.5em;
+    background: var(--color-darkest);
+}
+
+.scroll-thumb::-webkit-scrollbar-thumb {
+    background: var(--color-lesslight);
+}
+
+.form {
+    display: block;
+    height: 100%;
+    width: 50%;
+    padding: 10%;
+    font-size: 0.8em;
+}
+
+.form p {
+    text-align: center;
+    padding-top: 10px;
+}
+
+input {
+    border: none;
+    background: none;
+    border-bottom: solid 1px white;
+    margin: 10% 0 10% 0;
+    color: var(--color-lightest);
+    width: 100%;
+}
+
+input[type=submit] {
+    padding: 14px;
+    border-radius: 40px;
+    border: none;
+    background-color: var(--color-lightest);
+    color: var(--color-darkest);
+    width: 100%;
+    line-height: 0px;
+}
