@@ -28,7 +28,7 @@
                 $nome = $_POST['nome'];
                 $email = $_POST['email'];
                 $password = $_POST['password'];
-                include("./acessarBD.php");
+                include("../model/connectTodb.php");
                 $sql = "INSERT INTO `users` (`id`, `nome`, `senha`, `email`) VALUES (NULL, '$nome', '$password', '$email')";
 
                 try {

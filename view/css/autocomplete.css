@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-#input-adv {
+#adversary-name {
     margin: 10% 0 0 0;
 }
 
@@ -15,7 +15,7 @@
     background: var(--color-lessdark);
 }
 
-#input-adv-btn {
+#adversary-name-btn {
     margin-top: 10%;
 }
 

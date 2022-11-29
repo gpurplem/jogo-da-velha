@@ -16,7 +16,7 @@
         <div class="content-align">
             <div class="content">
                 <div class="form">
-                    <form action="./cadastrar.php" method="POST">
+                    <form action="../Antigo/cadastrar.php" method="POST">
                         <label for="nome">Nome</label>
                         <input type="text" name="nome" id="">
 

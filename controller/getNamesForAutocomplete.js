@@ -68,3 +68,14 @@ function autocomplete(inp, arr) { /*input element and array*/
         closeAllLists(e.target);
     });
 }
+
+var namesArray = Array();
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onload = function() {
+  namesArray = JSON.parse(this.responseText);
+}
+xmlhttp.open("POST", "../model/getAdversaryNames.php", true);
+xmlhttp.send();
+                                
+autocomplete(document.getElementById("input-adv"), nomes);

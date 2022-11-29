@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/autocomplete.css">
 
     <title>Tic-Tac-Toe</title>
 </head>
 
 <body>
     <?php
-    include("../model/connectTodb.php");
+    include("../model/Matches.php");
     ?>
 
     <nav class="nav-whole">
@@ -32,19 +33,27 @@
                 <div class="home-previous-matches">
                     <p>Partidas anteriores:</p>
                     <?php
-                    include("../model/getPreviousMatches.php");
+                    Matches::getPreviousMatches();
                     ?>
                 </div>
                 <div class="home-play-container">
                     <div class="home-play-align">
                         <div class="home-play-continue">
                             <p>Continuar partida contra:</p>
-                            <?php
-                            include("../model/getOngoingMatches.php");
+                            <?php 
+                            Matches::getOngoingMatches();
                             ?>
                         </div>
                         <div class="home-play-new">
-                            
+                            <p>Nova partida contra:</p>
+                            <form autocomplete="off" action="nova-partida.php" method="POST">
+                                <div class="autocomplete">
+                                    <input id="adversary-name" type="text" name="player" placeholder="Jogadores">
+                                </div>
+                                <input id="adversary-name-btn" type="submit" value="JOGAR" name="jogador">
+                            </form>
+
+                            <script src="../controller/getNamesForAutocomplete.js"></script>
                         </div>
                     </div>
                 </div>

@@ -28,7 +28,7 @@
                     <small><a href="https://pt.wikipedia.org/wiki/Jogo_da_velha">Wikipedia</a></small>
                 </div>
                 <div class="form">
-                    <form action="logar.php" method="post">
+                    <form action="./Antigo/logar.php" method="post">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="">
 

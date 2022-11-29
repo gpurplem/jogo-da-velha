@@ -27,7 +27,7 @@
                 <?php
                 $email = $_POST['email'];
                 $password = $_POST['password'];
-                include("./acessarBD.php");
+                include("../model/connectTodb.php");
                 $sql = "SELECT `id`, `nome`, `email` FROM `users` WHERE `email` LIKE '$email' AND `senha` LIKE '$password'";
 
                 try {
