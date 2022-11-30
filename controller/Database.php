@@ -1,12 +1,14 @@
 <?php
 
-class Database 
+class Database
 {
     public static $dbConnection;
 
-    public static function connectToDb(){
-        $userBD = "root";
-        $passBD = "";
-        $dbConnection = new PDO('mysql:host=localhost;dbname=tictactoe', $userBD, $passBD);
+    public static function connectToDb()
+    {
+        $DbUser = "root";
+        $DbPassword = "";
+
+        self::$dbConnection = new PDO('mysql:host=localhost;dbname=tictactoe', $DbUser, $DbPassword);
     }
 }

@@ -37,7 +37,7 @@
 
                         <input type="submit" value="LOGIN"><br>
 
-                        <p><a href="./view/signin.php">Cadastre-se</a></p>
+                        <p><a href="./view/signup.php">Cadastre-se</a></p>
                     </form>
                 </div>
             </div>

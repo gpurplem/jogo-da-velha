@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="./css/style.css">
+    <script src="../controller/User.js"></script>
 
     <title>Cadastrar</title>
 </head>
@@ -15,18 +16,18 @@
     <main class="whole-page">
         <div class="content-align">
             <div class="content">
-                <div class="form">
-                    <form action="../Antigo/cadastrar.php" method="POST">
-                        <label for="nome">Nome</label>
-                        <input type="text" name="nome" id="">
+                <div class="form" id="formContainer">
+                    <form id="signin-form">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name">
 
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="">
+                        <input type="email" id="email">
 
                         <label for="password">Senha</label>
-                        <input type="password" name="password" id="">
+                        <input type="password" id="password">
 
-                        <input type="submit" value="CADASTRAR"><br>
+                        <input type="button" value="CADASTRAR" onclick="User.signup()"><br>
                     </form>
                 </div>
             </div>
