@@ -1,4 +1,4 @@
-# tictactoe-1
+# jogo-da-velha
 
 ## Contexto da criação do sorftware:
 - Feito no meu segundo ano em contato com a programação
